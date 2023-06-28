@@ -4,7 +4,6 @@
 import * as React from 'react'
 import {useEffect} from 'react'
 function Greeting({initialName = ''}) {
-  console.log('rendering greeting')
   const [name, setName] = React.useState(
     () => window.localStorage.getItem('name') || initialName,
   )
