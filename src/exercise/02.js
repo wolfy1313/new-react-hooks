@@ -4,6 +4,7 @@
 import * as React from 'react'
 import {useEffect} from 'react'
 function Greeting({initialName = ''}) {
+  console.log('rendering greeting')
   const [name, setName] = React.useState(
     () => window.localStorage.getItem('name') || initialName,
   )
@@ -28,7 +29,18 @@ function Greeting({initialName = ''}) {
 
 function App() {
   const [count, setCount] = React.useState(0)
-  return <Greeting initialName="Grogonn" />
+  return (
+    <>
+      <button
+        onClick={() => {
+          setCount(previousCount => previousCount + 1)
+        }}
+      >
+        {count}
+      </button>
+      <Greeting initialName="Grogonn" />
+    </>
+  )
 }
 
 export default App
