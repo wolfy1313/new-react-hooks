@@ -24,7 +24,6 @@ export const handlers = [
     }
   }),
 ]
-//  sdf 
 const allPokemon = {
   pikachu: {
     id: 'UG9rZW1vbjowMjU=',
