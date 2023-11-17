@@ -5,9 +5,10 @@ import * as React from 'react'
 import {useEffect} from 'react'
 function Greeting({initialName = ''}) {
   // window.localStorage.getItem('name') ?? initialName
-  const [name, setName] = React.useState(
-    window.localStorage.getItem('name') || initialName,
-  )
+  function getInitialNameValue() {
+    return window.localStorage.getItem('name') || initialName
+  }
+  const [name, setName] = React.useState(getInitialNameValue)
 
   useEffect(() => {
     window.localStorage.setItem('name', name)
