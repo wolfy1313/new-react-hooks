@@ -27,6 +27,7 @@ function Greeting({initialName = ''}) {
 }
 
 function App() {
+  const [count, setCount] = React.useState(0)
   return <Greeting initialName="Grogonn" />
 }
 
