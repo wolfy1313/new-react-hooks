@@ -5,12 +5,16 @@ import * as React from 'react'
 import {useEffect, useState} from 'react'
 
 function useLocalStorageState(key, initialState = '') {
-  const [state, setState] = useState(
-    () => JSON.parse(window.localStorage.getItem(key)) || initialState,
-  )
+  const [state, setState] = useState(() => {
+    const valueInLocalStorage = window.localStorage.getItem(key)
+    if (valueInLocalStorage) {
+      return JSON.parse(valueInLocalStorage)
+    }
+    return initialState
+  })
 
   useEffect(() => {
-    JSON.stringify(window.localStorage.setItem(key, state))
+    window.localStorage.setItem(key, JSON.stringify(state))
   }, [key, state])
 
   return [state, setState]
