@@ -6,23 +6,16 @@ import {useEffect, useState} from 'react'
 
 function useLocalStorageState(key, initialState = '') {
   const [state, setState] = useState(
-    () => window.localStorage.getItem(key) || initialState,
+    () => JSON.parse(window.localStorage.getItem(key)) || initialState,
   )
 
   useEffect(() => {
-    window.localStorage.setItem(key, state)
+    JSON.stringify(window.localStorage.setItem(key, state))
   }, [key, state])
 
   return [state, setState]
 }
 function Greeting({initialName = ''}) {
-  // const [name, setName] = useState(
-  //   () => window.localStorage.getItem('name') || initialName,
-  // )
-
-  // useEffect(() => {
-  //   window.localStorage.setItem('name', name)
-  // }, [name])
   const [name, setName] = useLocalStorageState('name', initialName)
 
   function handleChange(event) {
