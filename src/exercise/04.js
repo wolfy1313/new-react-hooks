@@ -46,7 +46,7 @@ function Board() {
 
   function restart() {
     // 🐨 reset the squares
-    // 💰 `Array(9).fill(null)` will do it!
+    Array(9).fill(null)
   }
 
   function renderSquare(i) {
