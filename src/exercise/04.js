@@ -2,13 +2,18 @@
 // http://localhost:3000/isolated/exercise/04.js
 
 import * as React from 'react'
+import {useState} from 'react'
 
 function Board() {
   // 🐨 squares is the state for this component. Add useState for squares
-  const squares = Array(9).fill(null)
+  const [squares, setSquare] = useState([])
+  // const squares = Array(9).fill(null)
 
   // 🐨 We'll need the following bits of derived state:
   // - nextValue ('X' or 'O')
+  const [nextValue, setNextValue] = useState(calculateNextValue(squares))
+  const [winner, setWinner] = useState(calculateWinner(squares))
+  const [status, setStatus] = useState(calculateStatus(squares))
   // - winner ('X', 'O', or null)
   // - status (`Winner: ${winner}`, `Scratch: Cat's game`, or `Next player: ${nextValue}`)
   // 💰 I've written the calculations for you! So you can use my utilities
