@@ -5,48 +5,22 @@ import * as React from 'react'
 import {useState} from 'react'
 
 function Board() {
-  // 🐨 squares is the state for this component. Add useState for squares
   const [squares, setSquares] = useState(Array(9).fill(null))
-  // const squares = Array(9).fill(null)
 
-  // 🐨 We'll need the following bits of derived state:
-  // - nextValue ('X' or 'O')
   const nextValue = calculateNextValue(squares)
   const winner = calculateWinner(squares)
   const status = calculateStatus(winner, squares, nextValue)
-  // - winner ('X', 'O', or null)
-  // - status (`Winner: ${winner}`, `Scratch: Cat's game`, or `Next player: ${nextValue}`)
-  // 💰 I've written the calculations for you! So you can use my utilities
-  // below to create these variables
 
-  // This is the function your square click handler will call. `square` should
-  // be an index. So if they click the center square, this will be `4`.
   function selectSquare(square) {
-    // 🐨 first, if there's already a winner or there's already a value at the
-    // given square index (like someone clicked a square that's already been
-    // clicked), then return early so we don't make any state changes
     if (winner || squares[square]) {
       return
     }
     const squaresCopy = [...squares]
     squaresCopy[square] = nextValue
     setSquares(squaresCopy)
-    //
-    // 🦉 It's typically a bad idea to mutate or directly change state in React.
-    // Doing so can lead to subtle bugs that can easily slip into production.
-    //
-    // 🐨 make a copy of the squares array
-    // 💰 `[...squares]` will do it!)
-    //
-    // 🐨 set the value of the square that was selected
-    // 💰 `squaresCopy[square] = nextValue`
-    //
-    // 🐨 set the squares to your copy
   }
 
   function restart() {
-    // 🐨 reset the squares
-
     setSquares(Array(9).fill(null))
   }
 
@@ -60,7 +34,7 @@ function Board() {
 
   return (
     <div>
-      <div className="status">STATUS {status}</div>
+      <div className="status">{status}</div>
       <div className="board-row">
         {renderSquare(0)}
         {renderSquare(1)}
