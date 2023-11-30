@@ -3,12 +3,12 @@
 
 import * as React from 'react'
 import {useState, useEffect} from 'react'
+import {useLocalStorageState} from '../utils'
 
 function Board() {
   const initialSquares = Array(9).fill(null)
-  const [squares, setSquares] = useState(
-    () => JSON.parse(window.localStorage.getItem('squares')) || initialSquares,
-  )
+  const [squares, setSquares] = useLocalStorageState('squares', initialSquares)
+
   useEffect(() => {
     window.localStorage.setItem('squares', JSON.stringify(squares))
   }, [squares])
