@@ -15,7 +15,7 @@ function Board({onClick, squares}) {
 
   return (
     <div>
-      <div className="status">{}</div>
+      {/* <div className="status">{}</div> */}
       <div className="board-row">
         {renderSquare(0)}
         {renderSquare(1)}
@@ -37,37 +37,34 @@ function Board({onClick, squares}) {
 
 function Game() {
   const initialSquares = Array(9).fill(null)
-  // const [squares, setSquares] = useLocalStorageState('squares', initialSquares)
+  const [history, setHistory] = useLocalStorageState('tic-tac-toe:history', [
+    initialSquares,
+  ])
+  console.log(history)
   const [currentStep, setCurrentStep] = useLocalStorageState(
     'tic-tac-toe:step',
     0,
   )
-  const [history, setHistory] = useLocalStorageState('tic-tac-toe:history', [
-    initialSquares,
-  ])
-  const currentSquares = history(currentStep)
 
-  // useEffect(() => {
-  //   window.localStorage.setItem('squares', JSON.stringify(currentSquares))
-  // }, [currentSquares])
-
-  const nextValue = calculateNextValue(currentSquares)
+  const currentSquares = history[currentStep]
   const winner = calculateWinner(currentSquares)
+  const nextValue = calculateNextValue(currentSquares)
   const status = calculateStatus(winner, currentSquares, nextValue)
 
   function selectSquare(square) {
     if (winner || currentSquares[square]) {
       return
     }
+
     const newHistory = history.slice(0, currentStep + 1)
     const squaresCopy = [...currentSquares]
     squaresCopy[square] = nextValue
-    setHistory(...newHistory, squaresCopy)
+    setHistory([...newHistory, squaresCopy])
     setCurrentStep(newHistory.length)
   }
 
   function restart() {
-    setHistory(initialSquares)
+    setHistory([initialSquares])
     setCurrentStep(0)
   }
 
@@ -76,7 +73,7 @@ function Game() {
     const isCurrentStep = step === currentStep
     return (
       <li key={step}>
-        <button disabled={isCurrentStep} onClick={setCurrentStep(step)}>
+        <button disabled={isCurrentStep} onClick={() => setCurrentStep(step)}>
           {desc} {isCurrentStep ? `(current)` : null}
         </button>
       </li>
