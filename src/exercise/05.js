@@ -7,7 +7,6 @@ import {useRef} from 'react'
 import VanillaTilt from 'vanilla-tilt'
 
 function Tilt({children}) {
-  // 🐨 create a ref here with React.useRef()
   const myRef = useRef()
 
   useEffect(() => {
@@ -18,7 +17,7 @@ function Tilt({children}) {
       glare: true,
       'max-glare': 0.5,
     })
-    return () => tiltNode.VanillaTilt.destroy()
+    return () => tiltNode.VanillaTilt && tiltNode.VanillaTilt.destroy()
   }, [])
 
   return (
