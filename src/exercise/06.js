@@ -12,27 +12,26 @@ import {
 
 function PokemonInfo({pokemonName}) {
   const [pokemon, setPokemon] = useState(null)
-  // 🐨 Have state for the pokemon (null)
 
   useEffect(() => {
+    if (!pokemonName) {
+      return
+    }
+    setPokemon(null)
     async function nameChange() {
-      setPokemon(null)
-      if (!pokemonName) {
-        return
-      }
-      let pokemon = await fetchPokemon(pokemonName => {
-        setPokemon(pokemon)
-      })
+      let pokemon = await fetchPokemon(pokemonName)
+      setPokemon(pokemon)
     }
     nameChange()
   }, [pokemonName])
+  //   fetchPokemon(pokemonName).then(pokemon => setPokemon(pokemon))
 
   if (!pokemonName) {
     return
   } else if (!pokemon) {
     return <PokemonInfoFallback name={pokemonName} />
   } else {
-    PokemonDataView = pokemon
+    // PokemonDataView = pokemon
     return <PokemonDataView pokemon={pokemon} />
   }
 }
