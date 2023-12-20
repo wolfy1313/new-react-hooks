@@ -24,14 +24,12 @@ function PokemonInfo({pokemonName}) {
     }
     nameChange()
   }, [pokemonName])
-  //   fetchPokemon(pokemonName).then(pokemon => setPokemon(pokemon))
 
   if (!pokemonName) {
     return
   } else if (!pokemon) {
     return <PokemonInfoFallback name={pokemonName} />
   } else {
-    // PokemonDataView = pokemon
     return <PokemonDataView pokemon={pokemon} />
   }
 }
